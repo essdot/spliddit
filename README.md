@@ -62,5 +62,30 @@ var myCoolFixedArray = spliddit(myBustedArray)
 ##spliddit.hasPair(s)
 Tells if `s` contains a surrogate pair.
 
+```javascript
+spliddit.hasPair('Look 👀 wow')
+// => true
+spliddit.hasPair('abcdef')
+// => false
+```
+
 ##spliddit.isFirstOfPair(c)
 Tells if the first item in `c` (`c[0]`) is the first part of a surrogate pair. (Character codes 0xD800 through 0xDFFF)
+
+```javascript
+var s = '👴'
+var sFirst = s[0]
+var sArr = s.split('')
+
+spliddit.isFirstOfPair(s)
+// => true
+
+spliddit.isFirstOfPair(sFirst)
+// => true
+
+spliddit.isFirstOfPair(sArr[0])
+// => true
+
+spliddit.isFirstOfPair('please 💍 ?')
+// => false
+```
