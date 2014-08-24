@@ -180,3 +180,17 @@ suite('has pair', function() {
     assert.equal(spliddit.hasPair('–'), false)
   })
 })
+
+suite('first of pair', function() {
+  test('first of pair', function(){
+    assert(spliddit.isFirstOfPair('🐳'))
+    assert(spliddit.isFirstOfPair(['🐣']))
+    assert(spliddit.isFirstOfPair('🚯'.charAt(0)))
+    assert(spliddit.isFirstOfPair(['🔫'.charAt(0)]))
+    assert(spliddit.isFirstOfPair(String.fromCharCode(0xD801)))
+
+    assert.equal(spliddit.isFirstOfPair('a'), false)
+    assert.equal(spliddit.isFirstOfPair('Hello'), false)
+    assert.equal(spliddit.isFirstOfPair('–'), false)
+  })
+})
