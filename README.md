@@ -49,7 +49,7 @@ spliddit(han).length
 Alternatively, you can pass `spliddit` an array that potentially has broken-apart surrogate pairs, and `spliddit` will return an array that has them put back together: 
 
 ```javascript
-var myCoolString = '💪 Hey Ladies'
+var myCoolString = '😎 Fooool'
 
 // Messed-up array beginning with a split-apart surrogate pair :(
 var myBustedArray = myCoolString.split('')
@@ -59,7 +59,7 @@ var myCoolFixedArray = spliddit(myBustedArray)
 ```
 ##Other functions
 
-##spliddit.hasPair(s)
+###spliddit.hasPair(s)
 Tells if `s` contains a surrogate pair.
 
 ```javascript
@@ -69,7 +69,7 @@ spliddit.hasPair('abcdef')
 // => false
 ```
 
-##spliddit.isFirstOfPair(c)
+###spliddit.isFirstOfPair(c)
 Tells if the first item in `c` (`c[0]`) is the first part of a surrogate pair. (Character codes 0xD800 through 0xDFFF)
 
 ```javascript
