@@ -8,6 +8,10 @@ function spliddit(s) {
     , current
     , arr
 
+  if(s === void 0 || s === null) {
+    throw new Error('s cannot be undefined or null')
+  }
+
   if(Array.isArray(s)) {
     arr = s
   } else {
@@ -28,17 +32,11 @@ function spliddit(s) {
 }
 
 function is_first_of_surrogate_pair(c) {
-  if(typeof c !== 'string' || c.length < 1) {
+  if(c === void 0 || c === null || !c.hasOwnProperty(0)) {
     return false
   }
 
-  var lowerBound = 0xD800
-    , upperBound = 0xDFFF
-    , charCode = ('' + c).charCodeAt(0)
-
-  return lowerBound <= charCode && charCode <= upperBound
-
-  // return /[\uD800-\uDFFF]/.test(character)
+  return /[\uD800-\uDFFF]/.test(c[0])
 }
 
 function has_pair(s) {
