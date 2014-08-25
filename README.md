@@ -60,7 +60,7 @@ var myCoolFixedArray = spliddit(myBustedArray)
 
 ##Other functions
 
-##spliddit.hasPair(s)
+###spliddit.hasPair(s)
 Tells if `s` contains a surrogate pair.
 
 ```javascript
@@ -70,8 +70,8 @@ spliddit.hasPair('abcdef')
 // => false
 ```
 
-##spliddit.isFirstOfPair(c)
-Tells if the first item in `c` (`c[0]`) is the first code unit of a surrogate pair. (Character codes 0xD800 through 0xDFFF)
+###spliddit.isFirstOfPair(c)
+Tells if `c[0]` (the first item in `c`) is the first code unit of a surrogate pair. (Character codes 0xD800 through 0xDFFF)
 
 ```javascript
 var s = '👴'
