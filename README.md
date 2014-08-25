@@ -14,7 +14,7 @@ Consider:
 ```javascript
 var emojiMessage = 'Hello 😤'
 
-emojiString.split('').reverse().join('')
+emojiMessage.split('').reverse().join('')
 // => String with messed-up emoji
 ```
 
@@ -24,7 +24,7 @@ emojiString.split('').reverse().join('')
 var spliddit = require('spliddit')
 var emojiMessage = 'Hello 😤'
 
-spliddit(emojiString).reverse().join('')
+spliddit(emojiMessage).reverse().join('')
 // => '😤 olleH'
 ```
 
