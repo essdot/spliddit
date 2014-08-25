@@ -54,7 +54,7 @@ var myCoolString = '😎 Fooool'
 // Messed-up array beginning with a split-apart surrogate pair :(
 var myBustedArray = myCoolString.split('')
 
-// Aww yeah the gun show is back
+// Aww yeah cool guy is back
 var myCoolFixedArray = spliddit(myBustedArray)
 ```
 
