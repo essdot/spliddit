@@ -84,6 +84,9 @@ spliddit.isFirstOfPair(s)
 spliddit.isFirstOfPair(sFirst)
 // => true
 
+spliddit.isFirstOfPair(sArr)
+// => true
+
 spliddit.isFirstOfPair(sArr[0])
 // => true
 
