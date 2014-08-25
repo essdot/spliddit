@@ -7,7 +7,7 @@ Split a string into an array without munging emoji and other non-BMP characters.
 
 ##Why?
 
-The native `String#split` implementation does not pay attention to [surrogate pairs](http://en.wikipedia.org/wiki/UTF-16). The two code units in the pair get split apart and then sad things happen.
+The native `String#split` implementation does not pay attention to [surrogate pairs](http://en.wikipedia.org/wiki/UTF-16). When the code units of a surrogate pair are split apart, they are not intelligible on their own. Unless they are put back together in the correct order, individual code units will cause problems in code that handles strings.
 
 Consider:
 
@@ -28,7 +28,7 @@ spliddit(emojiString).reverse().join('')
 // => '😤 olleH'
 ```
 
-Also, since surrogate pairs take up two spaces in the Javascript string for a single character, `spliddit` can help you correctly count the number of characters in the string:
+Also, since surrogate pairs take up two spaces in the Javascript string to represent a single character, `spliddit` can help you correctly count the number of characters in the string:
 
 ```javascript
 var spliddit = require('spliddit')
@@ -57,6 +57,7 @@ var myBustedArray = myCoolString.split('')
 // Aww yeah the gun show is back
 var myCoolFixedArray = spliddit(myBustedArray)
 ```
+
 ##Other functions
 
 ##spliddit.hasPair(s)
@@ -70,7 +71,7 @@ spliddit.hasPair('abcdef')
 ```
 
 ##spliddit.isFirstOfPair(c)
-Tells if the first item in `c` (`c[0]`) is the first part of a surrogate pair. (Character codes 0xD800 through 0xDFFF)
+Tells if the first item in `c` (`c[0]`) is the first code unit of a surrogate pair. (Character codes 0xD800 through 0xDFFF)
 
 ```javascript
 var s = '👴'
@@ -86,6 +87,6 @@ spliddit.isFirstOfPair(sFirst)
 spliddit.isFirstOfPair(sArr[0])
 // => true
 
-spliddit.isFirstOfPair('please 💍 ?')
+spliddit.isFirstOfPair('a')
 // => false
 ```
