@@ -28,7 +28,7 @@ spliddit(emojiMessage).reverse().join('')
 // => '😤 olleH'
 ```
 
-Also, since surrogate pairs take up two spaces in the Javascript string to represent a single character, `spliddit` can help you correctly count the number of characters in the string:
+Also, since surrogate pairs take up two spaces in the Javascript string to represent a single character, `spliddit` can help you correctly count the number of code points (characters) in the string:
 
 ```javascript
 var spliddit = require('spliddit')
