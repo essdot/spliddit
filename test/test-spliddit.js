@@ -167,6 +167,17 @@ suite('spliddit', function() {
       , 'ڈ'
     ])
   })
+
+  test('country flags/regional indicator characters', function() {
+    var s = '🇦🇸' // American Samoa flag
+    var flagInMiddle = 'Sup 🇮🇹 Italy' // Italian flag in middle
+
+    assert.equal(spliddit(s).length, 1)
+    assert.equal(spliddit(s).join(''), s)
+
+    assert.equal(spliddit(flagInMiddle).length, 11)
+    assert.equal(spliddit(flagInMiddle).join(''), flagInMiddle)
+  })
 })
 
 suite('has pair', function() {
