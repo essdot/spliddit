@@ -1,6 +1,6 @@
 {
   "name": "spliddit",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "unicode-aware string splitting",
   "main": "index.js",
   "dependencies": {
