@@ -157,6 +157,7 @@ test('country flags/regional indicator characters', function(t) {
 
   t.equal(spliddit(flagInMiddle).length, 11)
   t.equal(spliddit(flagInMiddle).join(''), flagInMiddle)
+  t.equal(spliddit(flagInMiddle).reverse().join(''), 'ylatI 🇮🇹 puS')
   t.end()
 })
 
