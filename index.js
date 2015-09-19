@@ -16,36 +16,33 @@ FITZPATRICK_MODIFIER_END = 0x1f3ff
 function spliddit(s) {
   var i = 0
     , increment
-    , next_two
     , returnArr = []
     , current
-    , arr
 
   if(s === void 0 || s === null) {
     throw new Error('s cannot be undefined or null')
   }
 
   if(Array.isArray(s)) {
-    arr = s
-  } else {
-    arr = s.split('')
+    s = s.join('')
   }
 
-  while(i < arr.length) {
-    increment = take_how_many(i, arr)
-    current = arr.slice(i, i + increment).join('')
-    returnArr.push(current)
+  while(i < s.length) {
+    increment = take_how_many(i, s)
+    // current = arr.slice(i, i + increment).join('')
+    // current = s.substring(i, i + increment)
+    returnArr.push(s.substring(i, i + increment))
     i += increment
   }
 
   return returnArr
 }
 
-function take_how_many(i, arr) {
-  var last_index = arr.length - 1
-  var current = arr[i]
-  var current_two
-  var next_two
+function take_how_many(i, s) {
+  var last_index = s.length - 1
+  var current = s[i]
+  var current_pair
+  var next_pair
 
   // If we don't have a value that is part of a surrogate pair, or we're at
   // the end, only take the value at i
@@ -59,22 +56,22 @@ function take_how_many(i, arr) {
     return 2
   }
 
-  current_two = current + arr[i + 1]
-  next_two = arr[i + 2] + arr[i + 3]
+  current_pair = current + s[i + 1]
+  next_pair = s[i + 2] + s[i + 3]
 
   // Country flags are comprised of two surrogate pairs,
   // (both regional indicator pairs)
   // See http://emojipedia.org/flags/
   // If both pairs are regional indicator pairs, take 4
-  if(is_regional_indicator_pair(current_two) &&
-    is_regional_indicator_pair(next_two)) {
+  if(is_regional_indicator_pair(current_pair) &&
+    is_regional_indicator_pair(next_pair)) {
     return 4
   }
 
   // If we have a surrogate pair and the next pair make a
   // Fitzpatrick skin tone modifier, take 4
   // See http://emojipedia.org/modifiers/
-  if(is_fitzpatrick_modifier_pair(next_two)) {
+  if(is_fitzpatrick_modifier_pair(next_pair)) {
     return 4
   }
 
