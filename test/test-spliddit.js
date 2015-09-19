@@ -172,11 +172,21 @@ suite('spliddit', function() {
     var s = '🇦🇸' // American Samoa flag
     var flagInMiddle = 'Sup 🇮🇹 Italy' // Italian flag in middle
 
-    assert.equal(spliddit(s).length, 1)
+    assert.deepEqual(spliddit(s), [s])
     assert.equal(spliddit(s).join(''), s)
 
     assert.equal(spliddit(flagInMiddle).length, 11)
     assert.equal(spliddit(flagInMiddle).join(''), flagInMiddle)
+  })
+
+  test('emoji with skin tone indicators', function() {
+    var s = '🎅🏻🎅🏼🎅🏽🎅🏾🎅🏿'
+    var s2 = 'hi santa 🎅🏾 lol'
+
+    assert.deepEqual(spliddit(s), ['🎅🏻','🎅🏼','🎅🏽','🎅🏾','🎅🏿'])
+    assert.equal(spliddit(s).join(''), s)
+    assert.equal(spliddit(s2).length, 14)
+    assert.equal(spliddit(s2).join(''), s2)
   })
 })
 
