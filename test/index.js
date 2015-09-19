@@ -132,6 +132,15 @@ test('pass in munged array', function(t) {
   t.end()
 })
 
+test('throws for null and undefined', function(t) {
+  var undefinedFunction = function() { spliddit(void 0)}
+  var nullFunction = function() { spliddit(null)}
+
+  t.throws(undefinedFunction)
+  t.throws(nullFunction)
+  t.end()
+})
+
 test('arabic', function(t) {
   var s = 'ځڂڃڄڅچڇڈ'
 

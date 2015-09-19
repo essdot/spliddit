@@ -17,7 +17,6 @@ function spliddit(s) {
   var i = 0
     , increment
     , returnArr = []
-    , current
 
   if(s === void 0 || s === null) {
     throw new Error('s cannot be undefined or null')
@@ -29,8 +28,6 @@ function spliddit(s) {
 
   while(i < s.length) {
     increment = take_how_many(i, s)
-    // current = arr.slice(i, i + increment).join('')
-    // current = s.substring(i, i + increment)
     returnArr.push(s.substring(i, i + increment))
     i += increment
   }
@@ -57,7 +54,7 @@ function take_how_many(i, s) {
   }
 
   current_pair = current + s[i + 1]
-  next_pair = s[i + 2] + s[i + 3]
+  next_pair = s.substring(i + 2, i + 5)
 
   // Country flags are comprised of two surrogate pairs,
   // (both regional indicator pairs)
