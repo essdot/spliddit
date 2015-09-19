@@ -3,7 +3,7 @@ spliddit
 
 Spliddit - unicode-aware JS string splitting
 
-Split a string into an array without munging emoji and other non-BMP characters.
+Split a string into its constituent characters, without munging emoji and other non-BMP code points.
 
 ##Why?
 
