@@ -68,7 +68,7 @@ Country flags like &#x1f1e6;&#x1f1f4; are composed of two *regional indicator* U
 
 ###Skin tone emoji
 
-Skin tone emojis (&#x1f487;&#x1f3ff;) are composed of a color-neutral emoji that depicts humans (&#x1F487;), followed by one of the 5 Unicode skin tone modifier characters ([&#x1F3FB;](http://www.fileformat.info/info/unicode/char/1F3FB/index.htm), [&#x1F3FC;](http://www.fileformat.info/info/unicode/char/1F3FC/index.htm), [&#x1F3FD;](http://www.fileformat.info/info/unicode/char/1F3FD/index.htm), [&#x1F3FE;](http://www.fileformat.info/info/unicode/char/1F3FE/index.htm), [&#x1F3FF;](http://www.fileformat.info/info/unicode/char/1F3FF/index.htm)). The emoji character and the skin tone modifier are each represented as a surrogate pair in JavaScript strings.
+Skin tone emojis (&#x1F469;&#x1F3FE;) are composed of a color-neutral emoji that depicts humans (&#x1F469;), followed by one of the 5 Unicode skin tone modifier characters ([&#x1F3FB;](http://www.fileformat.info/info/unicode/char/1F3FB/index.htm), [&#x1F3FC;](http://www.fileformat.info/info/unicode/char/1F3FC/index.htm), [&#x1F3FD;](http://www.fileformat.info/info/unicode/char/1F3FD/index.htm), [&#x1F3FE;](http://www.fileformat.info/info/unicode/char/1F3FE/index.htm), [&#x1F3FF;](http://www.fileformat.info/info/unicode/char/1F3FF/index.htm)). The emoji character and the skin tone modifier are each represented as a surrogate pair in JavaScript strings.
 
 `spliddit` will split these sequences (4 total code units) into one character even though they consist of two Unicode code points.
 
