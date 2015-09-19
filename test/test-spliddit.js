@@ -178,8 +178,16 @@ suite('spliddit', function() {
     assert.equal(spliddit(flagInMiddle).length, 11)
     assert.equal(spliddit(flagInMiddle).join(''), flagInMiddle)
   })
-})
 
+  test('emoji with skin tone indicators', function() {
+    var s = '🎅🏻🎅🏼🎅🏽🎅🏾🎅🏿'
+
+    assert.equal(spliddit(s).length, 5)
+    assert.equal(spliddit(s).join(''), s)
+ }
+)
+
+})
 suite('has pair', function() {
   test('has pair', function(){
     assert(spliddit.hasPair('hello 𝔎 what\'s up'))
