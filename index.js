@@ -62,7 +62,7 @@ function take_how_many(i, arr) {
   current_two = current + arr[i + 1]
   next_two = arr[i + 2] + arr[i + 3]
 
-  // Flag emojis are comprised of two surrogate pairs,
+  // Country flags are comprised of two surrogate pairs,
   // (both regional indicator pairs)
   // See http://emojipedia.org/flags/
   // If both pairs are regional indicator pairs, take 4
