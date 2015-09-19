@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {},
   "scripts": {
-    "test": "tape test/test-spliddit.js"
+    "test": "tape test/index.js"
   },
   "author": "essdot (Justin Sippel)",
   "license": "MIT",
