@@ -5,6 +5,8 @@ module.exports.hasPair = has_pair
 HIGH_SURROGATE_START = 0xD800
 HIGH_SURROGATE_END = 0xDBFF
 
+LOW_SURROGATE_START = 0xDC00
+
 REGIONAL_INDICATOR_START = 0x1F1E6
 REGIONAL_INDICATOR_END = 0x1F1FF
 
@@ -94,15 +96,12 @@ function has_pair(s) {
     return false
   }
 
-  var arr = s.split('')
-
-  return arr.some(function(item) {
-    return is_first_of_surrogate_pair(item)
-  })
+  return s.split('').some(is_first_of_surrogate_pair)
 }
 
 function code_point_from_surrogate_pair(first, second) {
-  return (first - 0xD800) * 0x400 + second - 0xDC00 + 0x10000
+  return (first - HIGH_SURROGATE_START) * 0x400 +
+        second - LOW_SURROGATE_START + 0x10000
 }
 
 function is_regional_indicator_pair(pair) {
