@@ -173,13 +173,14 @@ test('emoji with skin tone indicators', function(t) {
 })
 
 test('has pair', function(t) {
-  t.ok(spliddit.hasPair('hello 𝔎 what\'s up'))
+  t.ok(spliddit.hasPair("hello 𝔎 what's up"))
   t.ok(spliddit.hasPair('👔'))
   t.ok(spliddit.hasPair('𐅕'))
+  t.ok(spliddit.hasPair('🏼'))
 
-  t.equal(spliddit.hasPair('hello'), false)
-  t.equal(spliddit.hasPair('ڃ'), false)
-  t.equal(spliddit.hasPair('–'), false)
+  t.notOk(spliddit.hasPair('hello'))
+  t.notOk(spliddit.hasPair('ڃ'))
+  t.notOk(spliddit.hasPair('–'))
   t.end()
 })
 
@@ -190,8 +191,8 @@ test('first of pair', function(t) {
   t.ok(spliddit.isFirstOfPair(['🔫'.charAt(0)]))
   t.ok(spliddit.isFirstOfPair(String.fromCharCode(0xD801)))
 
-  t.equal(spliddit.isFirstOfPair('a'), false)
-  t.equal(spliddit.isFirstOfPair('Hello'), false)
-  t.equal(spliddit.isFirstOfPair('–'), false)
+  t.notOk(spliddit.isFirstOfPair('a'))
+  t.notOk(spliddit.isFirstOfPair('Hello'))
+  t.notOk(spliddit.isFirstOfPair('–'))
   t.end()
 })
