@@ -2,16 +2,16 @@ module.exports = spliddit
 module.exports.isFirstOfPair = is_first_of_surrogate_pair
 module.exports.hasPair = has_pair
 
-HIGH_SURROGATE_START = 0xD800
-HIGH_SURROGATE_END = 0xDBFF
+var HIGH_SURROGATE_START = 0xD800
+var HIGH_SURROGATE_END = 0xDBFF
 
-LOW_SURROGATE_START = 0xDC00
+var LOW_SURROGATE_START = 0xDC00
 
-REGIONAL_INDICATOR_START = 0x1F1E6
-REGIONAL_INDICATOR_END = 0x1F1FF
+var REGIONAL_INDICATOR_START = 0x1F1E6
+var REGIONAL_INDICATOR_END = 0x1F1FF
 
-FITZPATRICK_MODIFIER_START = 0x1f3fb
-FITZPATRICK_MODIFIER_END = 0x1f3ff
+var FITZPATRICK_MODIFIER_START = 0x1f3fb
+var FITZPATRICK_MODIFIER_END = 0x1f3ff
 
 function spliddit(s) {
   var i = 0
@@ -119,6 +119,5 @@ function is_fitzpatrick_modifier_pair(pair) {
 }
 
 function between_inclusive(value, lower_bound, upper_bound) {
-  return value >= lower_bound &&
-          value <= upper_bound
+  return value >= lower_bound && value <= upper_bound
 }
