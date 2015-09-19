@@ -1,15 +1,16 @@
 {
   "name": "spliddit",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "unicode-aware string splitting",
   "main": "index.js",
-  "dependencies": {
-    "mocha": "^1.21.4"
-  },
+  "dependencies": {},
   "scripts": {
-    "test": "mocha -u tdd -R spec test/"
+    "test": "tape test/test-spliddit.js"
   },
   "author": "essdot (Justin Sippel)",
   "license": "MIT",
-  "repository": "https://github.com/essdot/spliddit.git"
+  "repository": "https://github.com/essdot/spliddit.git",
+  "devDependencies": {
+    "tape": "^4.2.0"
+  }
 }

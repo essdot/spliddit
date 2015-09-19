@@ -1,217 +1,187 @@
-var assert = require('assert')
+var test = require('tape')
+
 var spliddit = require('../index')
 
-suite('spliddit', function() {
-  test('emoji in middle', function() {
-    var result = spliddit('abc😤def')
+test('emoji in middle', function(t) {
+  var result = spliddit('abc😤def')
 
-    assert.deepEqual(result, [
-        'a'
-      , 'b'
-      , 'c'
-      , '😤'
-      , 'd'
-      , 'e'
-      , 'f'
-    ])
-  })
-
-  test('emoji start', function() {
-    var s = '🍕abd'
-
-    assert.deepEqual(spliddit(s), [
-        '🍕'
-      , 'a'
-      , 'b'
-      , 'd'
-    ])
-  })
-
-  test('emoji end', function() {
-    var s = '123🍥'
-
-    assert.deepEqual(spliddit(s), [
-        '1'
-      , '2'
-      , '3'
-      , '🍥'
-    ])
-  })
-
-  test('emoji party', function() {
-    var result = spliddit('🍕⚽⛵✨⏳☕⏰😍👍💅😋👭👯✊')
-
-    assert.deepEqual(result, [
-        '🍕'
-      , '⚽'
-      , '⛵'
-      , '✨'
-      , '⏳'
-      , '☕'
-      , '⏰'
-      , '😍'
-      , '👍'
-      , '💅'
-      , '😋'
-      , '👭'
-      , '👯'
-      , '✊'
-    ])
-  })
-
-  test('check', function() {
-    var result = spliddit('123🍕✓')
-
-    assert.deepEqual(result, ['1', '2', '3', '🍕', '✓'])
-  })
-
-  test('reverse string', function() {
-    var s = '123🍕✓'
-
-    var sReverse = spliddit(s).reverse().join('')
-    var sReverse2 = spliddit(sReverse).reverse().join('')
-
-    assert.equal('✓🍕321', sReverse)
-    assert.equal(s, sReverse2)
-  })
-
-  test('single char', function() {
-    var s = 'a'
-      , result = spliddit(s)
-
-    assert.deepEqual(result, ['a'])
-  })
-
-  test('regular string', function() {
-    var s = 'Hello how are you'
-      , arr = spliddit(s)
-
-    assert.equal(arr.length, 17)
-    assert.equal(arr[0], 'H')
-    assert.equal(arr[16], 'u')
-  })
-
-  test('chinese', function() {
-    var s = '𨭎", "𠬠", and "𩷶"'
-      , result = spliddit(s)
-
-    assert.equal(result.length, 16)
-    assert.equal(result[0], '𨭎')
-    assert.equal(result[1], '"')
-    assert.equal(result[5], '𠬠')
-    assert.equal(result[6], '"')
-    assert.equal(result[14], '𩷶')
-    assert.equal(result[15], '"')
-  })
-
-  test('en dash', function() {
-    var s = 'and then–boom'
-      , result = spliddit(s)
-
-    assert.equal(result.length, 13)
-    assert.equal(result[8], '–')
-
-    s = 'ab–c'
-    result = spliddit(s)
-    assert.deepEqual(result, ['a', 'b', '–', 'c'])
-  })
-
-  test('math script', function() {
-    var s = '𝒞𝒯𝒮𝒟'
-
-    assert.deepEqual(spliddit(s), ['𝒞', '𝒯', '𝒮', '𝒟'])
-  })
-
-  test('fraktur', function() {
-    var s = '𝔅𝔎'
-
-    assert.deepEqual(spliddit(s), ['𝔅', '𝔎'])
-  })
-
-  test('acrophonic', function() {
-    var s = '𐅧, 𐅨, and 𐅩'
-      , result = spliddit(s)
-
-    assert.equal(result.length, 11)
-    assert.equal(result[0], '𐅧')
-    assert.equal(result[1], ',')
-    assert.equal(result[3], '𐅨')
-    assert.equal(result[4], ',')
-    assert.equal(result[10], '𐅩')
-  })
-
-  test('pass in munged array', function() {
-    var emojiString = 'No 🙅'
-    var arr = emojiString.split('')
-
-    assert(spliddit(arr), spliddit(emojiString))
-    assert.deepEqual(spliddit(arr), [
-        'N'
-      , 'o'
-      , ' '
-      , '🙅'
-    ])
-  })
-
-  test('arabic', function() {
-    var s = 'ځڂڃڄڅچڇڈ'
-
-    assert.deepEqual(spliddit(s), [
-        'ځ'
-      , 'ڂ'
-      , 'ڃ'
-      , 'ڄ'
-      , 'څ'
-      , 'چ'
-      , 'ڇ'
-      , 'ڈ'
-    ])
-  })
-
-  test('country flags/regional indicator characters', function() {
-    var s = '🇦🇸' // American Samoa flag
-    var flagInMiddle = 'Sup 🇮🇹 Italy' // Italian flag in middle
-
-    assert.deepEqual(spliddit(s), [s])
-    assert.equal(spliddit(s).join(''), s)
-
-    assert.equal(spliddit(flagInMiddle).length, 11)
-    assert.equal(spliddit(flagInMiddle).join(''), flagInMiddle)
-  })
-
-  test('emoji with skin tone indicators', function() {
-    var s = '🎅🏻🎅🏼🎅🏽🎅🏾🎅🏿'
-    var s2 = 'hi santa 🎅🏾 lol'
-
-    assert.deepEqual(spliddit(s), ['🎅🏻','🎅🏼','🎅🏽','🎅🏾','🎅🏿'])
-    assert.equal(spliddit(s).join(''), s)
-    assert.equal(spliddit(s2).length, 14)
-    assert.equal(spliddit(s2).join(''), s2)
-  })
+  t.deepEqual(result, ['a', 'b', 'c', '😤', 'd', 'e', 'f'])
+  t.end()
 })
 
-suite('has pair', function() {
-  test('has pair', function(){
-    assert(spliddit.hasPair('hello 𝔎 what\'s up'))
-    assert(spliddit.hasPair('👔'))
-    assert(spliddit.hasPair('𐅕'))
+test('emoji start', function(t) {
+  var s = '🍕abd'
 
-    assert.equal(spliddit.hasPair('hello'), false)
-    assert.equal(spliddit.hasPair('ڃ'), false)
-    assert.equal(spliddit.hasPair('–'), false)
-  })
+  t.deepEqual(spliddit(s), ['🍕', 'a', 'b', 'd'])
+  t.end()
 })
 
-suite('first of pair', function() {
-  test('first of pair', function(){
-    assert(spliddit.isFirstOfPair('🐳'))
-    assert(spliddit.isFirstOfPair(['🐣']))
-    assert(spliddit.isFirstOfPair('🚯'.charAt(0)))
-    assert(spliddit.isFirstOfPair(['🔫'.charAt(0)]))
-    assert(spliddit.isFirstOfPair(String.fromCharCode(0xD801)))
+test('emoji end', function(t) {
+  var s = '123🍥'
 
-    assert.equal(spliddit.isFirstOfPair('a'), false)
-    assert.equal(spliddit.isFirstOfPair('Hello'), false)
-    assert.equal(spliddit.isFirstOfPair('–'), false)
-  })
+  t.deepEqual(spliddit(s), ['1', '2', '3', '🍥'])
+  t.end()
+})
+
+test('emoji party', function(t) {
+  var result = spliddit('🍕⚽⛵✨⏳☕⏰🇯🇲😍👍💅😋👭👯✊👸🏽')
+
+  t.deepEqual(result, [
+    '🍕', '⚽', '⛵', '✨', '⏳', '☕', '⏰', '🇯🇲',
+    '😍','👍', '💅', '😋', '👭', '👯', '✊', '👸🏽'
+  ])
+
+  t.end()
+})
+
+test('check', function(t) {
+  var result = spliddit('123🍕✓')
+
+  t.deepEqual(result, ['1', '2', '3', '🍕', '✓'])
+  t.end()
+})
+
+test('reverse string', function(t) {
+  var s = '123🍕✓'
+
+  var sReverse = spliddit(s).reverse().join('')
+  var sReverse2 = spliddit(sReverse).reverse().join('')
+
+  t.equal('✓🍕321', sReverse)
+  t.equal(s, sReverse2)
+  t.end()
+})
+
+test('single char', function(t) {
+  var s = 'a'
+
+  t.deepEqual(spliddit(s), ['a'])
+  t.end()
+})
+
+test('regular string', function(t) {
+  var s = 'Hello how are you'
+  var arr = spliddit(s)
+
+  t.equal(arr.length, 17)
+  t.equal(arr[0], 'H')
+  t.equal(arr[16], 'u')
+  t.end()
+})
+
+test('chinese', function(t) {
+  var s = '𨭎", "𠬠", and "𩷶"'
+  var result = spliddit(s)
+
+  t.equal(result.length, 16)
+  t.equal(result[0], '𨭎')
+  t.equal(result[1], '"')
+  t.equal(result[5], '𠬠')
+  t.equal(result[6], '"')
+  t.equal(result[14], '𩷶')
+  t.equal(result[15], '"')
+  t.end()
+})
+
+test('en dash', function(t) {
+  var s = 'and then–boom'
+  var result = spliddit(s)
+
+  t.equal(result.length, 13)
+  t.equal(result[8], '–')
+
+  s = 'ab–c'
+  result = spliddit(s)
+  t.deepEqual(result, ['a', 'b', '–', 'c'])
+  t.end()
+})
+
+test('math script', function(t) {
+  var s = '𝒞𝒯𝒮𝒟'
+
+  t.deepEqual(spliddit(s), ['𝒞', '𝒯', '𝒮', '𝒟'])
+  t.end()
+})
+
+test('fraktur', function(t) {
+  var s = '𝔅𝔎'
+
+  t.deepEqual(spliddit(s), ['𝔅', '𝔎'])
+  t.end()
+})
+
+test('acrophonic', function(t) {
+  var s = '𐅧, 𐅨, and 𐅩'
+    , result = spliddit(s)
+
+  t.equal(result.length, 11)
+  t.equal(result[0], '𐅧')
+  t.equal(result[1], ',')
+  t.equal(result[3], '𐅨')
+  t.equal(result[4], ',')
+  t.equal(result[10], '𐅩')
+  t.end()
+})
+
+test('pass in munged array', function(t) {
+  var emojiString = 'No 🙅'
+  var arr = emojiString.split('')
+
+  t.deepEqual(spliddit(arr), spliddit(emojiString))
+  t.deepEqual(spliddit(arr), ['N', 'o', ' ', '🙅'])
+  t.end()
+})
+
+test('arabic', function(t) {
+  var s = 'ځڂڃڄڅچڇڈ'
+
+  t.deepEqual(spliddit(s), ['ځ', 'ڂ', 'ڃ', 'ڄ', 'څ', 'چ', 'ڇ', 'ڈ'])
+  t.end()
+})
+
+test('country flags/regional indicator characters', function(t) {
+  var s = '🇦🇸' // American Samoa flag
+  var flagInMiddle = 'Sup 🇮🇹 Italy' // Italian flag in middle
+
+  t.deepEqual(spliddit(s), [s])
+  t.equal(spliddit(s).join(''), s)
+
+  t.equal(spliddit(flagInMiddle).length, 11)
+  t.equal(spliddit(flagInMiddle).join(''), flagInMiddle)
+  t.end()
+})
+
+test('emoji with skin tone indicators', function(t) {
+  var s = '🎅🏻🎅🏼🎅🏽🎅🏾🎅🏿'
+  var s2 = 'hi santa 🎅🏾 lol'
+
+  t.deepEqual(spliddit(s), ['🎅🏻','🎅🏼','🎅🏽','🎅🏾','🎅🏿'])
+  t.equal(spliddit(s).join(''), s)
+  t.equal(spliddit(s2).length, 14)
+  t.equal(spliddit(s2).join(''), s2)
+  t.end()
+})
+
+test('has pair', function(t) {
+  t.ok(spliddit.hasPair('hello 𝔎 what\'s up'))
+  t.ok(spliddit.hasPair('👔'))
+  t.ok(spliddit.hasPair('𐅕'))
+
+  t.equal(spliddit.hasPair('hello'), false)
+  t.equal(spliddit.hasPair('ڃ'), false)
+  t.equal(spliddit.hasPair('–'), false)
+  t.end()
+})
+
+test('first of pair', function(t) {
+  t.ok(spliddit.isFirstOfPair('🐳'))
+  t.ok(spliddit.isFirstOfPair(['🐣']))
+  t.ok(spliddit.isFirstOfPair('🚯'.charAt(0)))
+  t.ok(spliddit.isFirstOfPair(['🔫'.charAt(0)]))
+  t.ok(spliddit.isFirstOfPair(String.fromCharCode(0xD801)))
+
+  t.equal(spliddit.isFirstOfPair('a'), false)
+  t.equal(spliddit.isFirstOfPair('Hello'), false)
+  t.equal(spliddit.isFirstOfPair('–'), false)
+  t.end()
 })
