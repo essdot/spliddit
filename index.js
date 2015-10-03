@@ -98,8 +98,10 @@ function has_pair (s) {
 }
 
 function code_point_from_surrogate_pair (first, second) {
-  return (first - HIGH_SURROGATE_START) * 0x400 +
-        second - LOW_SURROGATE_START + 0x10000
+  var high_offset = first - HIGH_SURROGATE_START
+  var low_offset = second - LOW_SURROGATE_START
+
+  return (high_offset << 10) + low_offset + 0x10000
 }
 
 function is_regional_indicator_pair (pair) {
