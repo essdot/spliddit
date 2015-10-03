@@ -114,7 +114,7 @@ function is_fitzpatrick_modifier (s) {
   )
 }
 
-// Turn two code units (surrrogate pair) into
+// Turn two code units (surrogate pair) into
 // the code point they represent.
 function code_point_from_surrogate_pair (s) {
   var high_offset = s.charCodeAt(0) - HIGH_SURROGATE_START
