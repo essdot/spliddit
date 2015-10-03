@@ -13,29 +13,29 @@ var REGIONAL_INDICATOR_END = 0x1F1FF
 var FITZPATRICK_MODIFIER_START = 0x1f3fb
 var FITZPATRICK_MODIFIER_END = 0x1f3ff
 
-function spliddit(s) {
+function spliddit (s) {
   var i = 0
-    , increment
-    , returnArr = []
+  var increment
+  var result = []
 
-  if(s === void 0 || s === null) {
+  if (s === void 0 || s === null) {
     throw new Error('s cannot be undefined or null')
   }
 
-  if(Array.isArray(s)) {
+  if (Array.isArray(s)) {
     s = s.join('')
   }
 
-  while(i < s.length) {
+  while (i < s.length) {
     increment = take_how_many(i, s)
-    returnArr.push(s.substring(i, i + increment))
+    result.push(s.substring(i, i + increment))
     i += increment
   }
 
-  return returnArr
+  return result
 }
 
-function take_how_many(i, s) {
+function take_how_many (i, s) {
   var last_index = s.length - 1
   var current = s[i]
   var current_pair
@@ -49,18 +49,18 @@ function take_how_many(i, s) {
 
   // If the array isn't long enough to take another pair after this one, we
   // can only take the current pair
-  if((i + 3) > last_index) {
+  if ((i + 3) > last_index) {
     return 2
   }
 
   current_pair = current + s[i + 1]
   next_pair = s.substring(i + 2, i + 5)
 
-  // Country flags are comprised of two surrogate pairs,
-  // (both regional indicator pairs)
+  // Country flags are comprised of two regional indicator symbols,
+  // each represented by a surrogate pair.
   // See http://emojipedia.org/flags/
-  // If both pairs are regional indicator pairs, take 4
-  if(is_regional_indicator_pair(current_pair) &&
+  // If both pairs are regional indicator symbols, take 4
+  if (is_regional_indicator_pair(current_pair) &&
     is_regional_indicator_pair(next_pair)) {
     return 4
   }
@@ -68,15 +68,19 @@ function take_how_many(i, s) {
   // If we have a surrogate pair and the next pair make a
   // Fitzpatrick skin tone modifier, take 4
   // See http://emojipedia.org/modifiers/
-  if(is_fitzpatrick_modifier_pair(next_pair)) {
+  // Technically, only some code points are meant to be
+  // combined with the skin tone modifiers. This function
+  // does not check the current pair to see if it is
+  // one of them.
+  if (is_fitzpatrick_modifier_pair(next_pair)) {
     return 4
   }
 
   return 2
 }
 
-function is_first_of_surrogate_pair(c) {
-  if(c === void 0 || c === null || !c.hasOwnProperty(0)) {
+function is_first_of_surrogate_pair (c) {
+  if (c === void 0 || c === null || !c.hasOwnProperty(0)) {
     return false
   }
 
@@ -85,20 +89,20 @@ function is_first_of_surrogate_pair(c) {
   )
 }
 
-function has_pair(s) {
-  if(typeof s !== 'string') {
+function has_pair (s) {
+  if (typeof s !== 'string') {
     return false
   }
 
   return s.split('').some(is_first_of_surrogate_pair)
 }
 
-function code_point_from_surrogate_pair(first, second) {
+function code_point_from_surrogate_pair (first, second) {
   return (first - HIGH_SURROGATE_START) * 0x400 +
         second - LOW_SURROGATE_START + 0x10000
 }
 
-function is_regional_indicator_pair(pair) {
+function is_regional_indicator_pair (pair) {
   var code_point = code_point_from_surrogate_pair(
     pair.charCodeAt(0), pair.charCodeAt(1)
   )
@@ -108,7 +112,7 @@ function is_regional_indicator_pair(pair) {
   )
 }
 
-function is_fitzpatrick_modifier_pair(pair) {
+function is_fitzpatrick_modifier_pair (pair) {
   var code_point = code_point_from_surrogate_pair(
     pair.charCodeAt(0), pair.charCodeAt(1)
   )
@@ -118,6 +122,6 @@ function is_fitzpatrick_modifier_pair(pair) {
   )
 }
 
-function between_inclusive(value, lower_bound, upper_bound) {
+function between_inclusive (value, lower_bound, upper_bound) {
   return value >= lower_bound && value <= upper_bound
 }
