@@ -1,7 +1,3 @@
-module.exports = spliddit
-module.exports.isFirstOfPair = is_first_of_surrogate_pair
-module.exports.hasPair = has_pair
-
 var HIGH_SURROGATE_START = 0xD800
 var HIGH_SURROGATE_END = 0xDBFF
 
@@ -130,3 +126,7 @@ function code_point_from_surrogate_pair (s) {
 function between_inclusive (value, lower_bound, upper_bound) {
   return value >= lower_bound && value <= upper_bound
 }
+
+module.exports = spliddit
+module.exports.isFirstOfPair = is_first_of_surrogate_pair
+module.exports.hasPair = has_pair
