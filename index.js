@@ -35,6 +35,11 @@ function spliddit (s) {
   return result
 }
 
+// Decide how many code units make up the current character.
+// BMP characters: 1 code unit
+// Non-BMP characters (represented by surrogate pairs): 2 code units
+// Emoji with skin-tone modifiers: 4 code units (2 code points)
+// Country flags: 4 code units (2 code points)
 function take_how_many (i, s) {
   var last_index = s.length - 1
   var current = s[i]
@@ -60,19 +65,19 @@ function take_how_many (i, s) {
   // each represented by a surrogate pair.
   // See http://emojipedia.org/flags/
   // If both pairs are regional indicator symbols, take 4
-  if (is_regional_indicator_pair(current_pair) &&
-    is_regional_indicator_pair(next_pair)) {
+  if (is_regional_indicator_symbol(current_pair) &&
+    is_regional_indicator_symbol(next_pair)) {
     return 4
   }
 
-  // If we have a surrogate pair and the next pair make a
-  // Fitzpatrick skin tone modifier, take 4
+  // If the next pair make a Fitzpatrick skin tone
+  // modifier, take 4
   // See http://emojipedia.org/modifiers/
   // Technically, only some code points are meant to be
   // combined with the skin tone modifiers. This function
   // does not check the current pair to see if it is
   // one of them.
-  if (is_fitzpatrick_modifier_pair(next_pair)) {
+  if (is_fitzpatrick_modifier(next_pair)) {
     return 4
   }
 
@@ -97,31 +102,29 @@ function has_pair (s) {
   return s.split('').some(is_first_of_surrogate_pair)
 }
 
-function code_point_from_surrogate_pair (first, second) {
-  var high_offset = first - HIGH_SURROGATE_START
-  var low_offset = second - LOW_SURROGATE_START
-
-  return (high_offset << 10) + low_offset + 0x10000
-}
-
-function is_regional_indicator_pair (pair) {
-  var code_point = code_point_from_surrogate_pair(
-    pair.charCodeAt(0), pair.charCodeAt(1)
-  )
+function is_regional_indicator_symbol (s) {
+  var code_point = code_point_from_surrogate_pair(s)
 
   return between_inclusive(
     code_point, REGIONAL_INDICATOR_START, REGIONAL_INDICATOR_END
   )
 }
 
-function is_fitzpatrick_modifier_pair (pair) {
-  var code_point = code_point_from_surrogate_pair(
-    pair.charCodeAt(0), pair.charCodeAt(1)
-  )
+function is_fitzpatrick_modifier (s) {
+  var code_point = code_point_from_surrogate_pair(s)
 
   return between_inclusive(
     code_point, FITZPATRICK_MODIFIER_START, FITZPATRICK_MODIFIER_END
   )
+}
+
+// Turn two code units (surrrogate pair) into
+// the code point they represent.
+function code_point_from_surrogate_pair (s) {
+  var high_offset = s.charCodeAt(0) - HIGH_SURROGATE_START
+  var low_offset = s.charCodeAt(1) - LOW_SURROGATE_START
+
+  return (high_offset << 10) + low_offset + 0x10000
 }
 
 function between_inclusive (value, lower_bound, upper_bound) {
