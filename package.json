@@ -8,6 +8,7 @@
     "test": "node test/index.js"
   },
   "author": "sdot (Justin Sippel)",
+  "keywords": ["unicode", "string", "split", "spliddit"],
   "license": "MIT",
   "repository": "https://github.com/essdot/spliddit.git",
   "devDependencies": {
