@@ -58,6 +58,18 @@ var myBustedArray = myCoolString.split('')
 var myCoolFixedArray = spliddit(myBustedArray)
 ```
 
+### Delimiter
+
+You can also pass `spliddit` a second argument, a string or `RegExp` representing the delimiter to split by. The native String#split implementation does this correctly, so `spliddit` just passes through to String#split in this case.
+
+```javascript
+spliddit('hi🍔hi', '🍔')
+// => ['hi', 'hi']
+
+spliddit('123a456', 'a')
+// => ['123', '456']
+```
+
 ###Country Flags
 
 Country flags like &#x1f1e6;&#x1f1f4; are composed of two *regional indicator* Unicode characters. Each regional indicator character is represented as a surrogate pair in JavaScript strings, so country flags take up 4 code units. The regional indicator symbols follow the alphabet, and the two regional indicators used follow the country's code.

@@ -9,7 +9,7 @@ var REGIONAL_INDICATOR_END = 0x1F1FF
 var FITZPATRICK_MODIFIER_START = 0x1f3fb
 var FITZPATRICK_MODIFIER_END = 0x1f3ff
 
-function spliddit (s) {
+function spliddit (s, delimiter) {
   var i = 0
   var increment
   var result = []
@@ -20,6 +20,12 @@ function spliddit (s) {
 
   if (Array.isArray(s)) {
     s = s.join('')
+  }
+
+  if (delimiter instanceof RegExp ||
+    (typeof delimiter === 'string' && delimiter.length)
+  ) {
+    return s.split(delimiter)
   }
 
   while (i < s.length) {
