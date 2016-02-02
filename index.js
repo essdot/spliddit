@@ -10,10 +10,6 @@ var FITZPATRICK_MODIFIER_START = 0x1f3fb
 var FITZPATRICK_MODIFIER_END = 0x1f3ff
 
 function spliddit (s, delimiter) {
-  var i = 0
-  var increment
-  var result = []
-
   if (s === void 0 || s === null) {
     throw new Error('s cannot be undefined or null')
   }
@@ -27,6 +23,14 @@ function spliddit (s, delimiter) {
   ) {
     return s.split(delimiter)
   }
+
+  return split_into_chars(s)
+}
+
+function split_into_chars (s) {
+  var i = 0
+  var increment
+  var result = []
 
   while (i < s.length) {
     increment = take_how_many(i, s)
